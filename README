@@ -1,0 +1,109 @@
+ 
+More Information:
+
+This plugin has a lot features. They are all explained on the 
+main site (http://www.economysizegeek.com/?page_id=395).
+
+Install:
+Make sure all postie code is its own directory inside of wp-content/plugins/postie
+Make two directories in your main wordpress directory wp-filez and wp-photos
+Make sure these directories are writable by your web server (chmod 777 or chown to the webserver)
+make sure that the postie directory  that this file is in is moved to yourwebsite/wp-content/plugins
+Login to WordPress as "admin"
+Goto the Plugins tab in the WordPress Admin Site
+Activate "Postie"
+Goto to the "Options" tab and click on the sub-tab "Configure Postie" to configure it.
+(Postie ignores the settings under Options->Writing->Writing-by-Email)
+
+
+Setup a cronjob to pull down the get_mail.php
+Example:
+*/5 * * * * /usr/bin/lynx --source http://www.economysizegeek.com/wp-content/plugins/postie/get_mail.php >/dev/null 2>&1
+
+This fetches the mail every five mintues.
+
+If you don't have access to cron - check out "Cronless Postie"
+Features:
+
+Tips for Using:
+    * If you put in :start - the message processing won't start until it sees that string
+    * If you put in :end - the message processing will stop once it sees that string
+    * Posts can be delayed by adding a line with delayXdXhXm where X is a number.
+          delay:1d - 1 day
+          delay:1h - 1 hour
+          delay:1m - 1 minute
+          delay:1d2h4m - 1 day 2 hours 4m
+    * By putting comments:X in your message you can control if comments are allowed
+          comments:0 - means closed
+          comments:1 - means open
+          comments:2 - means registered only
+
+
+Category Handling:
+    * If you put a category name in the subject with a : it will be used
+      as the category for the post
+    * If you put a category id number in the subject with a : it will
+      be used as the category for the post
+    * If you put the first part of a category name it will be posted in
+      the first category that the system finds that matches - so if you put
+
+      Subject: Gen: New News
+
+      The system will post that in General.
+ 
+    * All of the above also applies if you put the category in brackets []
+    * Using [] or you can post to multiple categories at once
+
+      Subject: [1] [Mo] [Br] My Subject
+
+      On my blog it would post to General (Id 1), Moblog, and Brewing all at one time
+
+    * Using - or you can post to multiple categories at once
+
+      Subject: -1- -Mo- -Br- My Subject
+
+      On my blog it would post to General (Id 1), Moblog, and Brewing all at one time
+
+
+Image Handling:
+    * Postie has a filter to make it easy to show full images on individual pages.
+    * Tells you if you have GD installed for resizing images
+    * Allows you to attach images to your email and automatically post
+      them to your blog
+    * Large images are automatically thumbnailed and linked to the larger
+      image (Requires GD)
+    * You can publish images in the text of your message by using #img1#
+      #img2# - each one will be replaced with the HTML for the image
+      you attached
+    * Rotation - if you include the text
+
+      rotate:90
+
+      or any other number - all images in the message will be rotated for you.
+
+    * Images are renamed in a way that makes it impossible to accidentally
+      overwrite images you have already posted
+
+
+General Features:
+    * You can set the starting characters for you signature so that it
+      is removed from the posting message
+    * You can set a list of banned file names so if you provider adds
+      images to your post they don't show up in the blog
+    * If you post from an email address that is not a valid author the
+      email post will be forwarded to the admin
+    * You can control if you want HTML allowed in the body or subject
+      of your post
+    * Lets you set a default subject when you don't set one
+    * Defaults to posting to the default category you set in Word Press
+
+Interoperability:
+    * If your mail client doesn't support setting the subject (nokia) you
+      can do so by putting #your title here# at the begining of your message
+    * POP3,POP3-SSL,IMAP,IMAP-SSL now supported - last three require
+      php-imap support
+    * The program understands enough about mime to not duplicate post
+      if you send an HTML and plain text message
+    * Automatically confirms that you are installed correctly
+
+
